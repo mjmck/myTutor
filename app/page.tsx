@@ -4,9 +4,11 @@ import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import type { Resource } from './types';
 import NavBar from './components/NavBar';
+import HeroSection from './components/HeroSection';
 import CodeEditorPanel from './components/CodeEditorPanel';
 import SuggestionsPanel from './components/SuggestionsPanel';
 import ResourcesSection from './components/ResourcesSection';
+import Footer from './components/Footer';
 
 export default function Home() {
   const [code, setCode] = useState('');
@@ -53,20 +55,43 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--background)]">
+    <div className="min-h-screen">
       <NavBar title="myTutor" />
 
-      <main className="flex-1 p-6 flex gap-6 overflow-hidden">
-        <CodeEditorPanel
-          code={code}
-          onCodeChange={setCode}
-          onAnalyze={handleAnalyzeCode}
-          loading={loading}
-        />
-        <SuggestionsPanel suggestions={suggestions} />
-      </main>
+      {/* Hero Section */}
+      <HeroSection />
 
+      {/* Editor Section */}
+      <section id="editor-section" className="relative py-20 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              <span className="text-blue-400">Try It Now</span>
+            </h2>
+            <p className="text-white/50 max-w-xl mx-auto">
+              Paste your code below and get instant AI-powered analysis and suggestions.
+            </p>
+          </div>
+
+          {/* Editor Panels */}
+          <div className="flex flex-col lg:flex-row gap-6">
+            <CodeEditorPanel
+              code={code}
+              onCodeChange={setCode}
+              onAnalyze={handleAnalyzeCode}
+              loading={loading}
+            />
+            <SuggestionsPanel suggestions={suggestions} />
+          </div>
+        </div>
+      </section>
+
+      {/* Resources Section */}
       <ResourcesSection ref={resourcesSectionRef} resources={resources} />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
