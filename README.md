@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Code Refactor
 
-## Getting Started
+An AI-driven solution that evaluates source code to deliver targeted refactoring recommendations, while curating relevant documentation links for ongoing learning and future reference.
 
-First, run the development server:
+## Features
+
+- **Code analysis** – Paste code into the Monaco editor and get AI-generated suggestions
+- **Helpful resources** – Each analysis returns 1–3 curated links (MDN, docs, articles) to deepen your understanding
+- **GitHub sign-in** – Sign in with GitHub to track your account (optional)
+
+## Tech Stack
+
+- Next.js 16, React 19
+- OpenRouter (AI) – GLM-4.5-Air model
+- Supabase – Auth (GitHub OAuth)
+- Monaco Editor, React Markdown, Tailwind CSS
+
+## Prerequisites
+
+- Node.js 18+
+- [OpenRouter](https://openrouter.ai/) API key
+- [Supabase](https://supabase.com/) project (for auth)
+
+## Setup
+
+1. **Clone and install**
+
+   ```bash
+   npm install
+   ```
+
+2. **Environment variables**
+
+   Create `.env.local` in the project root:
+
+   ```
+   OPENROUTER_API_KEY=your_openrouter_api_key
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_key
+   ```
+
+3. **Supabase auth (optional, for sign-in)**
+
+   - In Supabase Dashboard: **Authentication → Providers** → enable **GitHub**
+   - Add your GitHub OAuth app Client ID and Secret
+   - Add redirect URLs: `http://localhost:3000/auth/callback` and `https://your-app.vercel.app/auth/callback`
+
+## Run
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open [http://localhost:3000](http://localhost:3000).
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The app is designed to be hosted on Vercel. Connect your repo, add the same environment variables in the Vercel project settings, and deploy. Add `https://your-app.vercel.app/auth/callback` to Supabase redirect URLs so GitHub sign-in works in production.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## How to Use
+
+1. Paste or type code in the left panel
+2. Click **Analyze & Suggest**
+3. View suggestions (markdown) in the right panel
+4. Use the resource links at the bottom for further reading
+5. Sign in with GitHub to keep your session (optional)
