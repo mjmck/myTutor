@@ -1,14 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0f0a14;
-  --foreground: #f5e6ff;
-  --nav-from: #6b21a8;
-  --nav-to: #be123c;
-  --bubble-bg: #1a1225;
-  --bubble-border: rgba(139, 92, 246, 0.3);
-  --accent-purple: #a855f7;
-  --accent-red: #e11d48;
+  /* Core Backgrounds */
+  --background: #030305;
+  --background-elevated: #0a0a0f;
+  --background-card: #0f0f16;
+
+  /* Foreground */
+  --foreground: #f0f0f5;
+  --foreground-muted: #8a8a9a;
+
+  /* Blue Accent */
+  --accent-blue: #3b82f6;
+  --accent-blue-glow: rgba(59, 130, 246, 0.3);
+  --accent-blue-subtle: rgba(59, 130, 246, 0.1);
+
+  /* Glass */
+  --glass-bg: rgba(15, 15, 22, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  /* Code Editor */
+  --editor-bg: #08080c;
+  --editor-border: rgba(59, 130, 246, 0.15);
+  --editor-gutter: #0d0d12;
+
+  /* Shadows */
+  --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.1);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 @theme inline {
@@ -18,8 +36,175 @@
   --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Animated Background */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      rgba(59, 130, 246, 0.08),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 100% 50%,
+      rgba(59, 130, 246, 0.05),
+      transparent
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Grid Pattern Overlay */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-elevated);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+/* Animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility Classes */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+/* Card Hover Effect */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow), var(--shadow-card);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+/* Glowing Border */
+.glow-border {
+  position: relative;
+}
+
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: rgba(59, 130, 246, 0.3);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.glow-border:hover::before {
+  opacity: 1;
+}
+
+/* Staggered Animation Delays */
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+.delay-400 {
+  animation-delay: 400ms;
+}
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+/* Code Block Styling */
+.prose code {
+  font-family: var(--font-mono) !important;
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-blue);
+  color: white;
 }
