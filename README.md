@@ -43,7 +43,7 @@ An AI-driven solution that evaluates source code to deliver targeted refactoring
 
    - In Supabase Dashboard: **Authentication → Providers** → enable **GitHub**
    - Add your GitHub OAuth app Client ID and Secret
-   - Add redirect URLs: `http://localhost:3000/auth/callback` and `https://your-app.vercel.app/auth/callback`
+   - Add redirect URL: `http://localhost:3000/auth/callback`
 
 ## Run
 
@@ -52,10 +52,6 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
-
-## Deploy on Vercel
-
-The app is designed to be hosted on Vercel. Connect your repo, add the same environment variables in the Vercel project settings, and deploy. Add `https://your-app.vercel.app/auth/callback` to Supabase redirect URLs so GitHub sign-in works in production.
 
 ## How to Use
 
