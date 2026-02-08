@@ -1,4 +1,4 @@
-# AI Code Refactor
+# myTutor
 
 An AI-driven solution that evaluates source code to deliver targeted refactoring recommendations, while curating relevant documentation links for ongoing learning and future reference.
 
